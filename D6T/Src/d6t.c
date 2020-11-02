@@ -83,7 +83,10 @@ D6T_Status_TypeDef D6T_Read_Temperature(D6T_TypeDef me)
     return Communication_Status;
 }
 
-
+/**
+ * @brief  merge two 8bit value tı one 16 bit value
+ * @param D6T_TypeDef object
+ */
 static void Convert_Buffer_To_Temperature_Value(D6T_TypeDef me)
 {
     me->Temperature_Reference = 256 * Read_Buffer[1] + Read_Buffer[0];
@@ -106,16 +109,32 @@ static void Convert_Buffer_To_Temperature_Value(D6T_TypeDef me)
     me->Error_Check_Code = Read_Buffer[34];
 }
 
+/**
+ * @brief  get temperature referance
+ * @param D6T_TypeDef object
+ * @retval temperature referance value(multiplied with 10)
+ */
 int16_t D6T_Get_Temperature_Reference(D6T_TypeDef me)
 {
     return me->Temperature_Reference;
 }
-
+/**
+ * @brief  get temperature of pixel
+ * @param D6T_TypeDef object
+ * @param uint8_t Pixel_Number which pixel
+ * @retval temperature of pixel value(multiplied with 10)
+ */
 int16_t D6T_Get_Temperature_Of_Pixel(D6T_TypeDef me, uint8_t Pixel_Number)
 {
     return me->Temperature_Pixel[Pixel_Number];
 }
 
+/**
+ * @brief  get temperature all
+ * @param D6T_TypeDef object
+ * @param uint16_t *Temperature_All_Values array with 16 elements
+ * @retval temperature of all array value(multiplied with 10)
+ */
 void D6T_Get_Temperature_All(D6T_TypeDef me, uint16_t *Temperature_All_Values)
 {
     for (int i = 0; i <= 15; i++)
